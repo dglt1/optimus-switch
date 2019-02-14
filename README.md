@@ -51,7 +51,8 @@ requirements:
     - `display-setup-script=/usr/local/bin/optimus.sh `
   
   - now move the /switch directory and its subdirectories and files to /etc/ 
-    you should now have /etc/switch/intel  and /etc/switch/nvidia  . directory is important.
+    - you should now have /etc/switch/intel  and /etc/switch/nvidia  . 
+    - directory is important, these scripts depend on it. (or edit scripts to your liking)
     
   - from terminal:
      - `sudo cp /etc/switch/set-intel.sh /usr/local/bin/set-intel.sh`
@@ -101,6 +102,6 @@ requirements:
  
   - im planning on also making an install script so all the manual copying and other actions can be avoided
  
- - *to be continued......  
+ - to be continued......  
  
  
