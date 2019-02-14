@@ -75,7 +75,7 @@ requirements:
    - OR
    - `sudo set-nvidia.sh`
    - reboot and your back on your intel/nvidia (prime) setup.
-   - (right now reboot is required, may not be necessary soon)
+   - (currently reboot is required for switching, but may not be necessary soon)
   
   - few additional notes:
    - if your already setup for prime you could always copy/paste the contents of your currently working 
