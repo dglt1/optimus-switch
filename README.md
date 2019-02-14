@@ -62,9 +62,9 @@ requirements:
    - `sudo nano /etc/switch/intel/no-optimus.conf`
    -  edit the 2 lines that contain `0000:02:00.0` and change to match yours
     - if your nvidia is at 01:00.0 then change both lins to look like this:
-    - `echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control'`
-    - `echo -n 1 > '/sys/bus/pci/devices/0000:01:00.0/remove'`
-    - save/exit
+     - `echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control'`
+     - `echo -n 1 > '/sys/bus/pci/devices/0000:01:00.0/remove'`
+     - save/exit
 
  
  - **Done! now give it a try.
