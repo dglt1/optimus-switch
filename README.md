@@ -4,6 +4,7 @@ scripts/config's to switch between an nvidia prime setup and an intel only setup
 the bash script's and various .conf files can be used to either setup nvidia prime and leave it or be used to easily switch between nvidia/intel (prime) using the proprietary nvidia driver, and intel only using either modesetting or intel driver. 
 
 i made these so that in the unlikely event im ever away from AC power, i can quickly run a script, reboot, and use only the integrated intel gpu and also completely power down the nvidia gpu in a way that does not break sleep/suspend or lock up on shutdown, etc... you get the point.  and when i want my performance back i can run set-nvidia.sh , reboot and be back to using nvidia/intel (prime).
+there are other options for optimus, bumblebee certainly does its job and allows for on-the-fly gpu enable/disable but also has its limitations, no vulkan support, and performance is not the best. optimus-manager is another, and more similar to this setup where a session can be run in intel only or intel/nvidia(prime) and it works for some but i was unable to get it working properly. this one just fits me best, it's simple, it works. you can decide for yourself if it's a good fit for you.
 
 when the set-intel.sh is run, the appropriate config's in /etc/modprobe.d/ , /etc/X11/xorg.conf.d , /usr/local/bin/optimus.sh are replaced with the various .conf files for an intel only session. this will remove/replace the configurations set by set-nvidia.sh
 
