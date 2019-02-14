@@ -15,7 +15,7 @@ i will likely write up a systemd service in the next day or two to handle runnin
 
 the remove/replace actions could probably be replaced with symlinks instead but i have not tested this method yet.
 
-this combination of scripts/configs were written and intended for my own use on Manjaro xfce/openbox so im not sure if they would require modification for other distro's.
+this combination of scripts/configs were written and intended for my own use on Manjaro linux xfce/openbox so im not sure if they would require modification for other distro's.
 
 requirements:
  - proprietary nvidia drivers (video-nvidia).
