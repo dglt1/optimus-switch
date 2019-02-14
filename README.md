@@ -65,36 +65,42 @@ requirements:
    - OR
    - `sudo set-nvidia.sh`
    - reboot and your back on your intel/nvidia (prime) setup.
-  (right now reboot is required, may not be necessary soon)
+   - (right now reboot is required, may not be necessary soon)
   
   few additional notes:
   - if your already setup for prime you could always copy/paste the contents of your currently working 
-  /etc/X11/xorg.conf.d/optimus.conf into /etc/switch/nvidia/nvidia-xorg.conf  and replace whats in there now if you feel     your current nvidia configuration works better for you.
-  - if you want to use the modesetting driver for the intel only setup, just edit
-  /usr/local/bin/set-instel.sh  and change this line:
-  cp /etc/switch/intel/intel-xorg.conf /etc/X11/xorg.conf.d/99-intel.conf
-  with this line:
-  cp /etc/switch/intel/modeset-xorg.conf /etc/X11/xorg.conf.d/99-intel.conf
+   -/etc/X11/xorg.conf.d/optimus.conf into /etc/switch/nvidia/nvidia-xorg.conf  
+   - and replace whats in there now if you feel your current nvidia configuration works better for you.
+  - if you want to use the modesetting driver for the intel only setup, just edit:
+    - /usr/local/bin/set-instel.sh  
+    - and change this line:
+    - `cp /etc/switch/intel/intel-xorg.conf /etc/X11/xorg.conf.d/99-intel.conf`
+    - with this line:
+    - `cp /etc/switch/intel/modeset-xorg.conf /etc/X11/xorg.conf.d/99-intel.conf`
 
 ************************************************************************************8
 - this can also be used to setup prime first the first time.
   
-  -remove all other video drivers listed from  command ` mhwd -li `
-  -install video-nvidia (sudo mhwd -i pci video-nvidia)
-  -follow previous install instructions for finding your nvidia gpu's BusID and edit /switch/nvidia/nvidia-xorg.conf
-  -copy /switch directory, subdirectories/files to /etc/
-  -backup/remove all existing video related configs from the directories listed above.
-  -edit /etc/lightdm/lightdm.conf as mentioned above.
+  - remove all other video drivers listed from  command ` mhwd -li `
+   - `sudo mhwd -r pci name-of-video-driver`
+  - install video-nvidia 
+   - `sudo mhwd -i pci video-nvidia`
+  - follow previous install instructions for finding your nvidia gpu's BusID and edit 
+   - /switch/nvidia/nvidia-xorg.conf  to correct nvidia BusID if necessary.
+  - copy /switch directory, subdirectories/files to /etc/
+  - backup/remove all existing video related configs from the directories listed above.
+  - edit /etc/lightdm/lightdm.conf as mentioned above.
+  - then:
+   - `sudo chmod +x /etc/switch/set-nvidia.sh`
+   - `sudo ./etc/switch/set-nvidia.sh`
+   - `sudo chmod a+rx /usr/local/bin/optimus.sh`
+   - `reboot`
   
-  `sudo chmod +x /etc/switch/set-nvidia.sh`
-  `sudo ./etc/switch/set-nvidia.sh`
-  `sudo chmod a+rx /usr/local/bin/optimus.sh`
-  `reboot`
-  
-  you should now be using nvidia to do all the rendering and the intel gpu's only job is to
+  - you should now be using nvidia to do all the rendering and the intel gpu's only job is to
   display whats rendered. enjoy.
  
+  - im planning on also making an install script so all the manual copying and other actions can be avoided
  
- to be continued......
+ - *to be continued......  
  
  
