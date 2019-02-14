@@ -26,13 +26,14 @@ requirements:
  - display setup script name/directory defined in the [seats:] section of lightdm.conf needs to match 
  
  setup instructions:
- - git clone https://github.com/dglt1/optimus-switch/
+ - from terminal
+ `git clone https://github.com/dglt1/optimus-switch/`
  
  
 
  - from terminal:
-    lspci | grep -E "VGA|3D"
-    make note of the BusID's for both intel and nvidia gpu's , you may need them if they do not match the BusID's specified by default, those are BusID "PCI:2:0:0" for nvidia gpu and   BusID "PCI:0:2:0" for intel gpu. if yours are different you will need to edit /switch/nvidia/nvidia-xorg.conf and /switch/intel/intel-xorg.conf and edit the "BusID" line to match the output of the lscpi command. if your output reads like this:
+    `lspci | grep -E "VGA|3D"`
+ - make note of the BusID's for both intel and nvidia gpu's , you may need them if they do not match the BusID's specified by default, those are BusID "PCI:2:0:0" for nvidia gpu and   BusID "PCI:0:2:0" for intel gpu. if yours are different you will need to edit /switch/nvidia/nvidia-xorg.conf and /switch/intel/intel-xorg.conf and edit the "BusID" line to match the output of the lscpi command. if your output reads like this:
     00:02.0 VGA compatible controller: Intel Corporation HD Graphics 530 (rev 06)
     then the BusID you would use for intel is "PCI:0:2:0". this is important so make sure its formatted properly.
     do the same for nvidia-xorg.conf
