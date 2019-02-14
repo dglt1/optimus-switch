@@ -1,5 +1,5 @@
 # optimus-switch
-scripts/config's to switch between an nvidia prime setup and an intel only setup and fully disable/power-down the nvidia gpu to extend battery life.
+set of scripts/config's to switch between an nvidia prime setup and an intel only setup and fully disable/power-down the nvidia gpu to extend battery life. currently only setup for use with LightDM. this will change soon to fit other/all DM's.
 
 the bash script's and various .conf files can be used to either setup nvidia prime and leave it or be used to easily switch between nvidia/intel (prime) using the proprietary nvidia driver, and intel only using either modesetting or intel driver. 
 
@@ -57,6 +57,15 @@ requirements:
   - from terminal:
      - `sudo cp /etc/switch/set-intel.sh /usr/local/bin/set-intel.sh`
      - `sudo cp /etc/switch/set-nvidia.sh /usr/local/bin/set-nvidia.sh`
+     
+  - this last step is only if your nvidia BusID from lspci is different than the default's provided.
+   - `sudo nano /etc/switch/intel/no-optimus.conf`
+   -  edit the 2 lines that contain `0000:02:00.0` and change to match yours
+    - if your nvidia is at 01:00.0 then change both lins to look like this:
+    - `echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control'`
+    - `echo -n 1 > '/sys/bus/pci/devices/0000:01:00.0/remove'`
+    - save/exit
+
  
  - **Done! now give it a try.
   
