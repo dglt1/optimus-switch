@@ -58,7 +58,7 @@ requirements:
      - `sudo cp /etc/switch/set-intel.sh /usr/local/bin/set-intel.sh`
      - `sudo cp /etc/switch/set-nvidia.sh /usr/local/bin/set-nvidia.sh`
  
-  - Done! 
+ - **Done! now give it a try.
   
   - *Usage:*
    - `sudo set-intel.sh`
@@ -68,18 +68,19 @@ requirements:
    - reboot and your back on your intel/nvidia (prime) setup.
    - (right now reboot is required, may not be necessary soon)
   
-  few additional notes:
-  - if your already setup for prime you could always copy/paste the contents of your currently working 
+  - few additional notes:
+   - if your already setup for prime you could always copy/paste the contents of your currently working 
    -/etc/X11/xorg.conf.d/optimus.conf into /etc/switch/nvidia/nvidia-xorg.conf  
    - and replace whats in there now if you feel your current nvidia configuration works better for you.
-  - if you want to use the modesetting driver for the intel only setup, just edit:
+   - if you want to use the modesetting driver for the intel only setup, just edit:
     - /usr/local/bin/set-instel.sh  
     - and change this line:
     - `cp /etc/switch/intel/intel-xorg.conf /etc/X11/xorg.conf.d/99-intel.conf`
     - with this line:
     - `cp /etc/switch/intel/modeset-xorg.conf /etc/X11/xorg.conf.d/99-intel.conf`
 
-************************************************************************************8
+***********************************************************************************0
+***********************************************************************************0
 - this can also be used to setup prime first the first time.
   
   - remove all other video drivers listed from  command ` mhwd -li `
