@@ -33,36 +33,38 @@ requirements:
 
  - from terminal:
     `lspci | grep -E "VGA|3D"`
- - make note of the BusID's for both intel and nvidia gpu's , you may need them if they do not match the BusID's specified by default, those are BusID "PCI:2:0:0" for nvidia gpu and   BusID "PCI:0:2:0" for intel gpu. if yours are different you will need to edit /switch/nvidia/nvidia-xorg.conf and /switch/intel/intel-xorg.conf and edit the "BusID" line to match the output of the lscpi command. if your output reads like this:
-    00:02.0 VGA compatible controller: Intel Corporation HD Graphics 530 (rev 06)
-    then the BusID you would use for intel is "PCI:0:2:0". this is important so make sure its formatted properly.
-    do the same for nvidia-xorg.conf
+ - make note of the BusID's for both intel and nvidia gpu's , you may need them if they do not match the BusID's specified by default.
+ - defaults are set as BusID "PCI:2:0:0" for nvidia gpu and   BusID "PCI:0:2:0" for intel gpu. 
+ - if yours are different you will need to edit /switch/nvidia/nvidia-xorg.conf and /switch/intel/intel-xorg.conf and edit the "BusID" line to match the output of the lscpi command. if your output reads like this:
+   -  `00:02.0 VGA compatible controller: Intel Corporation HD Graphics 530 (rev 06)`
+   - then the BusID you would use for intel is "PCI:0:2:0". this is important so make sure its formatted properly.
+    do the same for nvidia-xorg.conf  .
 
 
   - backup and remove any video related .conf files/blacklists in:
- /etc/modprobe.d/
- /etc/modules-load.d/
- /etc/X11/mhwd.d/
- /etc/X11/xorg.conf.d/
+    - /etc/modprobe.d/
+    - /etc/modules-load.d/
+    - /etc/X11/mhwd.d/
+    - /etc/X11/xorg.conf.d/
  
   - be sure that the display setup script defined in /etc/lightdm/lightdm.conf is uncommented and looks like this:
-  display-setup-script=/usr/local/bin/optimus.sh 
+    - `display-setup-script=/usr/local/bin/optimus.sh `
   
   - now move the /switch directory and its subdirectories and files to /etc/ 
     you should now have /etc/switch/intel  and /etc/switch/nvidia  . directory is important.
     
   - from terminal:
- sudo cp /etc/switch/set-intel.sh /usr/local/bin/set-intel.sh
- sudo cp /etc/switch/set-nvidia.sh /usr/local/bin/set-nvidia.sh
+     - `sudo cp /etc/switch/set-intel.sh /usr/local/bin/set-intel.sh`
+     - `sudo cp /etc/switch/set-nvidia.sh /usr/local/bin/set-nvidia.sh`
  
   - Done! 
   
-  usage:
-  sudo set-intel.sh
-  reboot and check it out, nvidia should be powered down and not visible on lspci or inxi -G .
-  or
-  sudo set-nvidia.sh
-  reboot and your back on your intel/nvidia (prime) setup.
+  - *Usage:*
+   - `sudo set-intel.sh`
+   - reboot and check it out, nvidia should be powered down and not visible on lspci or inxi -G .
+   - OR
+   - `sudo set-nvidia.sh`
+   - reboot and your back on your intel/nvidia (prime) setup.
   (right now reboot is required, may not be necessary soon)
   
   few additional notes:
