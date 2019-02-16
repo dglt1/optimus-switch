@@ -1,11 +1,16 @@
 #!/bin/sh
 
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
 ####################################
 # custom install script for LightDM#
 # and following GPU BusID's        #
 # intel iGPU BusID  00:02:0        #
 # nvidia dGPU BusID  01:00:0       #
-# sudo chmod +x install.sh  first! #
+# chmod +x install.sh  first!      #
 ####################################
 
 echo '##################################################################'
@@ -48,7 +53,8 @@ echo 'rm -rf /usr/local/share/optimus.desktop'
 sleep 2
 
 echo 'Copying contents of ~/optimus-switch/* to /etc/ .......'
-cp -r /home/$USER/optimus-switch/* /etc/ 
+mkdir /etc/switch/
+cp -r * /etc/
 
 sleep 2
 echo 'Copying set-intel.sh and set-nvidia.sh to /usr/local/bin/'
