@@ -47,7 +47,7 @@ rm -rf /usr/local/share/optimus.desktop
 echo 'rm -rf /usr/local/share/optimus.desktop'
 sleep 2
 
-echo 'Copying contents of ~/optimus-switch-gdm/* to /etc/ .......'
+echo 'Copying contents of ~/optimus-switch/* to /etc/ .......'
 cp -r /home/$USER/optimus-switch/* /etc/ 
 
 sleep 2
