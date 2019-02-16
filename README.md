@@ -6,7 +6,7 @@
 - this install script and accompanying scripts/.conf files will setup an intel/nvidia PRIME setup that will provide
 - the best possible performance for your intel/nvidia optimus laptop. this will also allow for easy switching between
 - intel/nvidia (prime) mode and an intel only mode that also completely powers down and removes the nvidia gpu
-- from sight allowing for improved battery life, and not negatively effect sleep/suspend cycles.
+- from sight allowing for improved battery life, and not negatively effect sleep/suspend cycles (hangs/lockups).
 
   - this script by default is for an intel gpu with a ~~BusID 0:2:0~~
   - EDIT: intel BusID is only needed if intel drivers require it to work (i have not found this to be the case).
