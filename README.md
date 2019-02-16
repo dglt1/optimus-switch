@@ -72,7 +72,7 @@ then:
 - the nvidia gpu should be disabled and no longer visible (inxi, mhwd, lspci wont see it). let me know how it goes, or if - you notice anything that could be improved upon. 
 
 - note: if you see errors about “file does not exist” when you run install.sh its because it’s trying to remove the usual - mhwd-gpu/nvidia files that you may/may not have removed. only errors after "copying" starts should be of any concern. 
-- if you could save the output of the install script if you are having issues. this makes it much easier totroubleshoot.
+- if you could save the output of the install script if you are having issues. this makes it much easier to troubleshoot.
 
 
 - usage after running install script:  
