@@ -1,117 +1,84 @@
-# optimus-switch
-set of scripts/config's to switch between an nvidia prime setup and an intel only setup and fully disable/power-down the nvidia gpu to extend battery life. currently only setup for use with LightDM. this will change soon to fit other/all DM's.
+# optimus-switch for LightDM
+- this is a more complete version of my previous lightDM setup scripts.
+- includes an install script to remove conflicting configurations, blacklists, loading of drivers/modules. 
+- made by a manjaro user for use with manjaro linux. (other distros would require modification)
+- 
+- this install script and accompanying scripts/.conf files will setup an intel/nvidia PRIME setup that will provide
+- the best possible performance for your intel/nvidia optimus laptop. this will also allow for easy switching between
+- intel/nvidia (prime) mode and an intel only mode that also completely powers down and removes the nvidia gpu
+- from sight allowing for improved battery life, and not negatively effect sleep/suspend cycles.
 
-the bash script's and various .conf files can be used to either setup nvidia prime and leave it or be used to easily switch between nvidia/intel (prime) using the proprietary nvidia driver, and intel only using either modesetting or intel driver. 
-
-i made these so that in the unlikely event im ever away from AC power, i can quickly run a script, reboot, and use only the integrated intel gpu and also completely power down the nvidia gpu in a way that does not break sleep/suspend or lock up on shutdown, etc... you get the point.  and when i want my performance back i can run set-nvidia.sh , reboot and be back to using nvidia/intel (prime).
-there are other options for optimus, bumblebee certainly does its job and allows for on-the-fly gpu enable/disable but also has its limitations, no vulkan support, and performance is not the best. optimus-manager is another, and more similar to this setup where a session can be run in intel only or intel/nvidia(prime) and it works for some but i was unable to get it working properly. this one just fits me best, it's simple, it works. you can decide for yourself if it's a good fit for you.
-
-when the set-intel.sh is run, the appropriate config's in /etc/modprobe.d/ , /etc/X11/xorg.conf.d , /usr/local/bin/optimus.sh are replaced with the various .conf files for an intel only session. this will remove/replace the configurations set by set-nvidia.sh
-
-when set-nvidia.sh is run, the various provided configs for an intel/nvidia (prime) setup will remove/replace the intel only configuration that was created by running set-intel.sh
-
-right now the way i have the 2 scripts and the .conf files setup, they are at the moment for use with LightDM using a display setup script that is also removed/replaced each time set-intel.sh or set-nvidia.sh  is run so the script can be used for disabling the nvidia gpu when using intel only, but not disable nvidia when using the nvidia(for obvious reasons).
-
-i will likely write up a systemd service in the next day or two to handle running the correct script instead of using the display setup script in LightDM to handle it, this way it can be used universally and not dependant on any given display manager.
-
-the remove/replace actions could probably be replaced with symlinks instead but i have not tested this method yet.
-
-this combination of scripts/configs were written and intended for my own use on Manjaro linux xfce/openbox so im not sure if they would require modification for other distro's.
-
-requirements:
- - proprietary nvidia drivers (video-nvidia).
- - intel drivers (xf86-video-intel in manjaro's repo).
- - modesetting could be used as an alternative to intel drivers and requires no additional driver package.
- - acpi_call (either acpi_call-dkms or the acpi_call for your kernel version)
- - display setup script name/directory defined in the [seats:] section of lightdm.conf needs to match 
- 
- setup instructions:
- - from terminal
- `git clone https://github.com/dglt1/optimus-switch/`
- 
- 
-
- - from terminal:
-    `lspci | grep -E "VGA|3D"`
- - make note of the BusID's for both intel and nvidia gpu's , you may need them if they do not match the BusID's specified by default.
- - defaults are set as BusID "PCI:2:0:0" for nvidia gpu and   BusID "PCI:0:2:0" for intel gpu. 
- - if yours are different you will need to edit /switch/nvidia/nvidia-xorg.conf and /switch/intel/intel-xorg.conf and edit the "BusID" line to match the output of the lscpi command. if your output reads like this:
-   -  `00:02.0 VGA compatible controller: Intel Corporation HD Graphics 530 (rev 06)`
-   - then the BusID you would use for intel is "PCI:0:2:0". this is important so make sure its formatted properly.
-    do the same for nvidia-xorg.conf  .
+  - this script by default is for an intel gpu with a ~~BusID 0:2:0~~
+  - EDIT: intel BusID is only needed if intel drivers require it to work (i have not found this to be the case).
+  - and an nvidia gpu with BusID 01:00:0`
+  - you can verify this in terminal with this command `lspci | grep -E 'VGA|3D'`
+  - if yours does not match, edit ~~/optimus-switch/switch/intel/intel-xorg.conf to match your BusID~~
+  - and ~/optimus-switch/switch/nvidia/nvidia-xorg.conf  to match your nvidia BusID
+  - DO THIS BEFORE RUNNING INSTALL SCRIPT, that is, if you want it to work anyway.
+  - note: output like this "00:02.0 VGA " has to be formatted like this `0:2:0` in nvidia-xorg.conf for it to work properly.
 
 
-  - backup and remove any video related .conf files/blacklists in:
-    - /etc/modprobe.d/
-    - /etc/modules-load.d/
-    - /etc/X11/mhwd.d/
-    - /etc/X11/xorg.conf.d/
- 
-  - be sure that the display setup script defined in /etc/lightdm/lightdm.conf is uncommented and looks like this:
-    - `display-setup-script=/usr/local/bin/optimus.sh `
-  
-  - now move the /switch directory and its subdirectories and files to /etc/ 
-    - you should now have /etc/switch/intel  and /etc/switch/nvidia  . 
-    - directory is important, these scripts depend on it. (or edit scripts to your liking)
-    
-  - from terminal:
-     - `sudo cp /etc/switch/set-intel.sh /usr/local/bin/set-intel.sh`
-     - `sudo cp /etc/switch/set-nvidia.sh /usr/local/bin/set-nvidia.sh`
-     
-  - this last step is only if your nvidia BusID from lspci is different than the default's provided.
-   - `sudo nano /etc/switch/intel/no-optimus.conf`
-   -  edit the 2 lines that contain `0000:02:00.0` and change to match yours
-    - if your nvidia is at 01:00.0 then change both lins to look like this:
-     - `echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control'`
-     - `echo -n 1 > '/sys/bus/pci/devices/0000:01:00.0/remove'`
-     - save/exit
+Lets begin.
+- requirements:
+ - check `mhwd -li` to see what video drivers are installed, for this to work, you need only
+ - video-nvidia installed, if you have others, start by removing them like this.
+ - `sudo mhwd -r pci name-of-video-driver` (remove any/all mhwd installed gpu drivers besides video-nvidia.)
+- if you dont already have video-nvidia installed, do that now:
+- `sudo mhwd -i pci video-nvidia`
+then:
+ - `sudo pacman -S linux-headers acpi_call-dkms xf86-video-intel git` 
+ - `sudo modprobe acpi_call`
 
- 
- - **Done! now give it a try.
-  
-  - *Usage:*
-   - `sudo set-intel.sh`
-   - reboot and check it out, nvidia should be powered down and not visible on lspci or inxi -G .
-   - OR
-   - `sudo set-nvidia.sh`
-   - reboot and your back on your intel/nvidia (prime) setup.
-   - (currently reboot is required for switching, but may not be necessary soon)
-  
-  - few additional notes:
-   - if your already setup for prime you could always copy/paste the contents of your currently working 
-   -/etc/X11/xorg.conf.d/optimus.conf into /etc/switch/nvidia/nvidia-xorg.conf  
-   - and replace whats in there now if you feel your current nvidia configuration works better for you.
-   - if you want to use the modesetting driver for the intel only setup, just edit:
-    - /usr/local/bin/set-instel.sh  
-    - and change this line:
-    - `cp /etc/switch/intel/intel-xorg.conf /etc/X11/xorg.conf.d/99-intel.conf`
-    - with this line:
-    - `cp /etc/switch/intel/modeset-xorg.conf /etc/X11/xorg.conf.d/99-intel.conf`
+- if you have any custom video/gpu .conf files in the following directories, backup/delete them. (they can not remain there).
+- the install script removes the most common ones, but custom file names wont be noticed. only you know if they exist.
+- and clearing the entire directory would likely break other things, this install will not do that. so clean up if necessary.
+   - /etc/X11/
+   - /etc/X11/mhwd.d/
+   - /etc/X11/xorg.conf.d/
+   - /etc/modprobe.d/
+   - /etc/modules-load.d/
+   -
+- in terminal, from your home directory ~/  (this is important for the install script to work properly)
+- 
+- `git clone https://github.com/dglt1/optimus-switch.git`
+- `sudo chmod +x ~/optimus-switch/install.sh`
+- `cd ~/optimus-switch`
+- `sudo ./install.sh`
+- 
+-  Done! after reboot you will be using intel/nvidia prime. 
+- 
+- to change the default mode to intel only, run:`sudo set-intel.sh`
+- to switch the default mode to intel/nvidia prime, run: `sudo set-nvidia.sh`
+- 
+- Done!
+-
+- switch as often as you like. both intel mode and prime mode work without any issues that i know of, please make me aware - of any issues so i may fix them, or make note of how you have already fixed it for yourself.
 
-***********************************************************************************0
-***********************************************************************************0
-- this can also be used to setup prime first the first time.
-  
-  - remove all other video drivers listed from  command ` mhwd -li `
-   - `sudo mhwd -r pci name-of-video-driver`
-  - install video-nvidia 
-   - `sudo mhwd -i pci video-nvidia`
-  - follow previous install instructions for finding your nvidia gpu's BusID and edit 
-   - /switch/nvidia/nvidia-xorg.conf  to correct nvidia BusID if necessary.
-  - copy /switch directory, subdirectories/files to /etc/
-  - backup/remove all existing video related configs from the directories listed above.
-  - edit /etc/lightdm/lightdm.conf as mentioned above.
-  - then:
-   - `sudo chmod +x /etc/switch/set-nvidia.sh`
-   - `sudo ./etc/switch/set-nvidia.sh`
-   - `sudo chmod a+rx /usr/local/bin/optimus.sh`
-   - `reboot`
-  
-  - you should now be using nvidia to do all the rendering and the intel gpu's only job is to
-  display whats rendered. enjoy.
- 
-  - im planning on also making an install script so all the manual copying and other actions can be avoided
- 
- - to be continued......  
- 
- 
+- you may notice that after you boot into the intel only mode that the nvidia gpu is not yet disabled and its because you - cant run a proper test to see which acpi_call to use while using the nvidia gpu (it hard locks up the system).
+
+- so once your booted into an intel only session run this in terminal:
+- `sudo /usr/share/acpi_call/examples/turn_off_gpu.sh`
+
+- you should see a list of various acpi calls, find the one that says “works!” , copy it. and then:
+- `sudo nano /etc/switch/intel/no-optimus.sh`
+
+- at the bottom you will see 2 lines #commented out, uncomment them (remove #) and if the acpi call is different from the - one you just copied, edit/replace with the good one. if your nvidia BusID is not 1:00:0 edit BusID's on both lines that - specify BusID's, save/exit.
+
+- then:
+
+- `sudo set-intel.sh`
+- `reboot`
+
+- the nvidia gpu should be disabled and no longer visible (inxi, mhwd, lspci wont see it). let me know how it goes, or if - you notice anything that could be improved upon. 
+
+- note: if you see errors about “file does not exist” when you run install.sh its because it’s trying to remove the usual - mhwd-gpu/nvidia files that you may/may not have removed. only errors after "copying" starts should be of any concern. if - you could save the output of the install script if you are having issues. this makes it much easier totroubleshoot.
+
+
+- usage after running install script:  
+
+- `sudo set-intel.sh` will set intel only mode, reboot and nvidia powered off and removed from view.
+
+- `sudo set-nvidia.sh`  sets intel/nvidia (prime) mode.
+
+- this should be pretty straight forward, if however, you cant figure it out, i am @dglt on the manjaro forum. i hope this
+- is as useful for you as it is for me.
