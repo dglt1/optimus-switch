@@ -44,7 +44,8 @@ then:
 - `sudo chmod +x ~/optimus-switch/install.sh`
 - `cd ~/optimus-switch`
 - `sudo ./install.sh`
-- 
+-  make sure to edit /etc/lightdm/lightdm.conf and scroll down to the [Seat:*] section, find/edit this line like this:
+-  `display-setup-script=/usr/local/bin/optimus.sh`  remove the # at beginning of line. save/exit.
 -  Done! after reboot you will be using intel/nvidia prime. 
 - 
 - to change the default mode to intel only, run:`sudo set-intel.sh`
