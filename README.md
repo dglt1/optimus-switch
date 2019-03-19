@@ -1,5 +1,6 @@
 # optimus-switch for LightDM
-- this is a more complete version of my previous lightDM setup scripts.
+- if your looking for the SDDM or GDM versions, you can get to those repo's here https://github.com/dglt1
+- this is the completed version of my previous optimus-switch scripts for LightDM.
 - includes an install script to remove conflicting configurations, blacklists, loading of drivers/modules. 
 - made by a manjaro user for use with manjaro linux. (other distros would require modification)
 - 
