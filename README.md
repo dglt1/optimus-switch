@@ -26,7 +26,8 @@ Lets begin.
  - `sudo mhwd -r pci name-of-video-driver` (remove any/all mhwd installed gpu drivers besides video-nvidia.)
 - if you dont already have video-nvidia installed, do that now:
 - `sudo mhwd -i pci video-nvidia`
-then:(replace linuxXXX-headers with the kernel version your using, for example linux419-headers is for the 4.19 kernel, so edit to match)
+then:
+(replace linuxXXX-headers with the kernel version your using, for example linux419-headers is for the 4.19 kernel, so edit to match)
  - `sudo pacman -S linuxXXX-headers acpi_call-dkms xf86-video-intel git` 
  - `sudo modprobe acpi_call`
 
