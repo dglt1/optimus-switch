@@ -92,7 +92,7 @@ You may notice that after you boot into the intel only mode that the nvidia gpu 
 So once your booted into an intel only session run this in terminal: 
 
 ```bash
-sudo /usr/share/acpi_call/examples/turn_off_gpu.sh
+sudo /etc/switch/gpu_switch_check.sh
 ```
 
 You should see a list of various acpi calls, find the one that says “works!” , copy it. and then: 
@@ -100,7 +100,7 @@ You should see a list of various acpi calls, find the one that says “works!”
 ```bash
 sudo nano /etc/switch/intel/no-optimus.sh
 ```
-At the bottom you will see 2 lines #commented out, uncomment them (remove #) and if the acpi call is different from the one you just copied, edit/replace with the good one. if your nvidia BusID is not `1:00:0` edit BusID's on both lines that specify BusID's, save and exit.
+At the bottom you will see 2 lines #commented out, uncomment them (remove #) and if the acpi call is different from the one you just copied, edit/replace with the good one. if your nvidia BusID is not `1:00:0` edit BusID's on both lines that specify BusID's, save and exit. 
 
 Then:
 
