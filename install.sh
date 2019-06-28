@@ -15,7 +15,7 @@ fi
 
 echo '##################################################################'
 echo '# be sure you have all requirements BEFORE running this script  ##'
-echo '# "pacman -S linux-headers acpi_call-dkms xf86-video-intel git" ##'
+echo '# linux*-headers acpi_call-dkms xf86-video-intel git xorg-xrandr##'
 echo '# ****installing in 5 sec... CTRL+C to abort****                ##'
 echo '##################################################################'
 sleep 6
@@ -87,6 +87,7 @@ chmod +x /usr/local/bin/set-nvidia.sh
 chmod a+rx /usr/local/bin/optimus.sh
 chmod a+rx /etc/switch/intel/no-optimus.sh
 chmod a+rx /etc/switch/nvidia/optimus.sh
+chmod +x /etc/switch/gpu_switch_check.sh
 
 sleep 1
 echo 'Currently boot mode is set to nvidia prime.'
