@@ -65,7 +65,8 @@ cd ~/optimus-switch
 sudo ./install.sh
 ```
 
-~~Make sure to edit /etc/lightdm/lightdm.conf and scroll down to the [Seat:*] section, find/edit this line like this: `display-setup-script=/usr/local/bin/optimus.sh` remove the # at beginning of line. Save and exit.~~ #Updated install script no longer requires you to manually edit lightdm.conf .
+~~Make sure to edit /etc/lightdm/lightdm.conf and scroll down to the [Seat:*] section, find/edit this line like this: `display-setup-script=/usr/local/bin/optimus.sh` remove the # at beginning of line. Save and exit.~~ 
+## Updated install script no longer requires you to manually edit lightdm.conf .
 
 Done! after reboot you will be using intel/nvidia prime.  
 
