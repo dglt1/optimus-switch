@@ -55,7 +55,8 @@ sleep 2
 echo 'Copying contents of ~/optimus-switch/* to /etc/ .......'
 mkdir /etc/switch/
 cp -r * /etc/
-
+mkdir /etc/lightdm/lightdm.conf.d
+cp /etc/switch/lightdm.conf /etc/lightdm/lightdm.conf.d/lightdm.conf
 sleep 2
 echo 'Copying set-intel.sh and set-nvidia.sh to /usr/local/bin/'
 
@@ -93,15 +94,9 @@ sleep 1
 echo 'Currently boot mode is set to nvidia prime.'
 echo 'you can switch to intel only mode with sudo set-intel.sh and reboot.'
 echo 'same can be done for nvidia prime mode with sudo set-nvidia.sh'
-echo '######################################################################'
-echo '*                                                                    *'
-echo '* dont forget to edit [Seat:*] section of /etc/lightdm/lightdm.conf  *'
-echo '* to specify the display setup script. without this will fail to     *'
-echo '* load a graphical environment. uncomment and edit line as follows:  *'
-echo '* display-setup-script=/usr/local/bin/optimus.sh                     *'
-echo '*                                                                    *'
-echo '*#####################################################################'
+
 sleep 1
+echo 'this updated installer no longer requires manually editing lightdm.conf'
 echo 'Install finished!'
 
 
