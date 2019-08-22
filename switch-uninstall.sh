@@ -29,8 +29,6 @@ rm -rf /etc/modules-load.d/99-intel.conf
 
 sleep 1
 echo 'optimus-switch is now uninstalled'
-echo 'Dont forget to edit /etc/lightdm.conf and comment out the'
-echo 'display-setup-script= line you edited when installing optimus-switch'
 echo '########'
 echo 'if you reboot now, you will not have a working Xorg setup.'
 echo 'setup another optimus solution before rebooting.'
