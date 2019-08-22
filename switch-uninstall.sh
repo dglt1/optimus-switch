@@ -13,6 +13,7 @@ rm -rf /usr/local/bin/set-intel.sh
 rm -rf /usr/local/bin/set-nvidia.sh
 rm -rf /usr/local/bin/optimus.sh
 rm -rf /etc/switch
+rm -rf /etc/lightdm/lightdm.conf.d/lightdm.conf
 
 systemctl disable disable-nvidia.service
 rm -rf /etc/systemd/system/disable-nvidia.service
