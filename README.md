@@ -33,12 +33,13 @@ If you dont already have video-nvidia installed, do that now:
 sudo mhwd -i pci video-nvidia
 ```
 Note: there has been a recent change to how nvidia drivers are handled and are now split into these options for better selection. so choose one that works with your hardware.
+```
 video-nvidia-340xx
 video-nvidia-390xx
 video-nvidia-418xx
 video-nvidia-430xx
 video-nvidia-435xx
-
+```
 
 Replace linuxXXX-headers with the kernel version/s your using, for example linux419-headers is for the 4.19 kernel, so edit to match)
 
