@@ -9,7 +9,14 @@
 # PLEASE READ BELOW TO ENABLE THIS
 
 xrandr --auto
-echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control'  #adjust busid if needed
+
+#This ensures that LightDM doesn't fail after locking the screen or logging out, because since the system isn't rebooting, the dGPU is already turned off, so it's already removed from /sys/bus/pci/devices.
+if [ -d "/sys/bus/pci/devices/0000:01:00.0" ]
+then
+
+  echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control'  #adjust busid if needed
+
+fi
 
 #############
 ##make sure the line below is the correct acpi_call to disable your nvidia gpu. 
@@ -24,4 +31,11 @@ echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control'  #adjust busid i
 #if your nvidia gpu has a 1:0:0 busID, just uncomment the line, no change needed.
 
 #echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call 
-#echo -n 1 > '/sys/bus/pci/devices/0000:01:00.0/remove'
+
+#Same as previous if statement.
+if [ -d "/sys/bus/pci/devices/0000:01:00.0" ]
+then
+
+  #echo -n 1 > '/sys/bus/pci/devices/0000:01:00.0/remove' #Uncomment this line after you find the right acpi_call.
+
+fi
