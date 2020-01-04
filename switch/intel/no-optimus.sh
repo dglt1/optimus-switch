@@ -10,7 +10,9 @@
 
 xrandr --auto
 
-#This ensures that LightDM doesn't fail after locking the screen or logging out, because since the system isn't rebooting, the dGPU is already turned off, so it's already removed from /sys/bus/pci/devices.
+#This ensures that LightDM doesn't fail after locking the screen or logging out
+#edit "0000:01:00.0" to match your bus id if it's different.
+
 if [ -d "/sys/bus/pci/devices/0000:01:00.0" ]
 then
 
