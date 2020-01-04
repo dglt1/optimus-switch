@@ -11,11 +11,10 @@
 xrandr --auto
 
 #This ensures that LightDM doesn't fail after locking the screen or logging out
-#edit "0000:01:00.0" to match your bus id if it's different.
-
 if [ -d "/sys/bus/pci/devices/0000:01:00.0" ]
 then
-
+  
+  #edit "0000:01:00.0" to match your bus id if it's different.
   echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control'  #adjust busid if needed
 
 fi
@@ -27,14 +26,16 @@ fi
 #
 #` sudo /usr/share/acpi_call/examples/turn_off_gpu.sh ` 
 #
-#and see which acpi_call is returned as "works!" and then uncomment and edit this file to match.
+#and see which acpi_call is returned as "works!" and then uncomment and edit line 33 to match.
 #same goes for the the BusID of nvidia card, 
 #default is set to 0000:01:00.0 (syntax is important) 
-#if your nvidia gpu has a 1:0:0 busID, just uncomment the line 36 below
+
+#echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call
 
 if [ -d "/sys/bus/pci/devices/0000:01:00.0" ]
 then
-
+  
+  #if your nvidia gpu has a 0000:01:00.0 busID, just uncomment line 39 below. Otherwise, change "0000:01:00.0" to match, then uncomment.
   #echo -n 1 > '/sys/bus/pci/devices/0000:01:00.0/remove' #Uncomment this line after you find the right acpi_call.
 
 fi
