@@ -1,5 +1,6 @@
 #!/bin/sh
-BUSID=`lspci | grep 3D | awk -F'[:. ]' '{print $1, $2, $3}' | sed -r 's|0([0-9]) |\1:|g'`
+PCI=`lspci | grep 3D | cut -d' ' -f1`
+BUSID=`sed -r 's|0([0-9])[:.]|\1:|g' <<< ${PCI}`
 
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
@@ -16,6 +17,7 @@ if [ -z "$BUSID" ]; then
    #I suspect we should just exit here and do nothing, but for now I'm just
    #having it default to 1:0:0
    BUSID="1:0:0"
+   PCI="01:00.0"
 fi
 
 ####################################
@@ -99,6 +101,7 @@ cp /etc/switch/nvidia/optimus.sh /usr/local/bin/optimus.sh
 
 sleep 1
 echo 'Setting permissions........'
+sed -i "s|0000:01:00.0|0000:${PCI}|" /etc/switch/intel/no-optimus.sh
 chmod +x /usr/local/bin/set-intel.sh
 chmod +x /usr/local/bin/set-nvidia.sh
 chmod a+rx /usr/local/bin/optimus.sh
