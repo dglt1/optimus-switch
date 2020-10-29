@@ -81,13 +81,13 @@ Done! after reboot you will be using intel/nvidia prime.
 To change the default mode to intel only, run:
 
 ```bash
-sudo set-intel.sh
+sudo set-intel
 ```
 
 To switch the default mode to intel/nvidia prime, run: 
 
 ```bash
-sudo set-nvidia.sh
+sudo set-nvidia
 ```
 
 Done!
@@ -114,7 +114,7 @@ At the bottom you will see 2 lines #commented out, uncomment them (remove #) and
 Then:
 
 ```bash
-sudo set-intel.sh
+sudo set-intel
 reboot
 ```
 
@@ -126,8 +126,8 @@ Only errors after "copying" starts should be of any concern. If you could save t
 
 ### Usage after running install script:  
 
-- `sudo set-intel.sh` will set intel only mode, reboot and nvidia powered off and removed from view.
-- `sudo set-nvidia.sh`  sets intel/nvidia (prime) mode.
+- `sudo set-intel` will set intel only mode, reboot and nvidia powered off and removed from view.
+- `sudo set-nvidia`  sets intel/nvidia (prime) mode.
 
 This should be pretty straight forward, if however, you cant figure it out, i am @dglt on the manjaro forum. i hope this is as useful for you as it is for me.
 
