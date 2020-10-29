@@ -55,9 +55,9 @@ rm -rf /usr/local/share/optimus.desktop
 echo 'rm -rf /usr/local/share/optimus.desktop'
 sleep 2
 
-echo 'Copying contents of ~/optimus-switch/* to /etc/ .......'
+echo 'Copying contents of ~/optimus-switch/switch/* to /etc/switch/ .......'
 mkdir /etc/switch/
-cp -r * /etc/
+cp -r ~/optimus-switch/switch/* /etc/switch/
 mkdir /etc/lightdm/lightdm.conf.d
 cp /etc/switch/lightdm.conf /etc/lightdm/lightdm.conf.d/lightdm.conf
 sleep 2
