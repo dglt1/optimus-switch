@@ -55,17 +55,17 @@ rm -rf /usr/local/share/optimus.desktop
 echo 'rm -rf /usr/local/share/optimus.desktop'
 sleep 2
 
-echo 'Copying contents of ~/optimus-switch/* to /etc/ .......'
+echo 'Copying contents of ~/optimus-switch/switch/* to /etc/switch/ .......'
 mkdir /etc/switch/
-cp -r * /etc/
+cp -r ~/optimus-switch/switch/* /etc/switch/
 mkdir /etc/lightdm/lightdm.conf.d
 cp /etc/switch/lightdm.conf /etc/lightdm/lightdm.conf.d/lightdm.conf
 sleep 2
 echo 'Copying set-intel.sh and set-nvidia.sh to /usr/local/bin/'
 
-cp /etc/switch/set-intel.sh /usr/local/bin/set-intel.sh
+cp /etc/switch/set-intel.sh /usr/local/bin/set-intel
 
-cp /etc/switch/set-nvidia.sh /usr/local/bin/set-nvidia.sh
+cp /etc/switch/set-nvidia.sh /usr/local/bin/set-nvidia
 
 ###This section not needed for LightDM but can be used if want, its not required.
 #cp /etc/switch/optimus.desktop /usr/local/share/optimus.desktop
@@ -76,26 +76,26 @@ cp /etc/switch/set-nvidia.sh /usr/local/bin/set-nvidia.sh
 #chmod 644 /etc/systemd/system/disable-nvidia.service
 
 sleep 1
-echo 'Setting nvidia prime mode (sudo set-nvidia.sh).......'
+echo 'Setting nvidia prime mode (sudo set-nvidia).......'
 
 cp /etc/switch/nvidia/nvidia-xorg.conf /etc/X11/xorg.conf.d/99-nvidia.conf
 cp /etc/switch/nvidia/nvidia-modprobe.conf /etc/modprobe.d/99-nvidia.conf
 cp /etc/switch/nvidia/nvidia-modules.conf /etc/modules-load.d/99-nvidia.conf
-cp /etc/switch/nvidia/optimus.sh /usr/local/bin/optimus.sh
+cp /etc/switch/nvidia/optimus.sh /usr/local/bin/optimus
 
 sleep 1
 echo 'Setting permissions........'
-chmod +x /usr/local/bin/set-intel.sh
-chmod +x /usr/local/bin/set-nvidia.sh
-chmod a+rx /usr/local/bin/optimus.sh
+chmod +x /usr/local/bin/set-intel
+chmod +x /usr/local/bin/set-nvidia
+chmod a+rx /usr/local/bin/optimus
 chmod a+rx /etc/switch/intel/no-optimus.sh
 chmod a+rx /etc/switch/nvidia/optimus.sh
 chmod +x /etc/switch/gpu_switch_check.sh
 
 sleep 1
 echo 'Currently boot mode is set to nvidia prime.'
-echo 'you can switch to intel only mode with sudo set-intel.sh and reboot.'
-echo 'same can be done for nvidia prime mode with sudo set-nvidia.sh'
+echo 'you can switch to intel only mode with sudo set-intel and reboot.'
+echo 'same can be done for nvidia prime mode with sudo set-nvidia'
 
 sleep 1
 echo 'this updated installer no longer requires manually editing lightdm.conf'
